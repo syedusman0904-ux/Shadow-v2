@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="SHADOW — Private. Secure. Connected.">
+  <title>SHADOW</title>
+  <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1>SHADOW</h1>
+          <span>Private. Secure. Connected.</span>
+        </div>
+      </div>
+      <div class="side-note">
+        Website V1<br>
+        Authentication foundation
+      </div>
+    </aside>
+
+    <main class="main">
+      <section id="auth-screen" class="card auth-card">
+        <div class="hero">
+          <div class="moon">◐</div>
+          <h2 id="auth-title">Welcome to SHADOW</h2>
+          <p id="auth-subtitle">Create your private account.</p>
+        </div>
+
+        <form id="auth-form">
+          <label>Username
+            <input id="username" autocomplete="username" minlength="3" maxlength="32" required>
+          </label>
+
+          <label id="display-name-wrap">Display name
+            <input id="display-name" autocomplete="name" maxlength="80">
+          </label>
+
+          <label>Password
+            <input id="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+          </label>
+
+          <button id="auth-button" type="submit">Create account</button>
+          <p id="error" class="error" role="alert"></p>
+        </form>
+
+        <button id="toggle-auth" class="link-button" type="button">Already have an account? Login</button>
+      </section>
+
+      <section id="app-screen" class="card dashboard hidden">
+        <div class="topbar">
+          <div>
+            <span class="eyebrow">ACCOUNT</span>
+            <h2 id="welcome"></h2>
+          </div>
+          <button id="logout" class="ghost">Logout</button>
+        </div>
+
+        <div class="profile-box">
+          <div class="avatar" id="avatar">S</div>
+          <div>
+            <h3 id="profile-name"></h3>
+            <p id="profile-username"></p>
+            <p id="profile-id"></p>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <h3>SHADOW Website V1</h3>
+          <div class="item done">✓ Secure account registration</div>
+          <div class="item done">✓ Login and logout</div>
+          <div class="item done">✓ Argon2id password hashing</div>
+          <div class="item done">✓ Short-lived access tokens</div>
+          <div class="item done">✓ Rotating HttpOnly refresh sessions</div>
+          <div class="item next">Next → User search & private chat</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/web/app.js"></script>
+</body>
+</html>
