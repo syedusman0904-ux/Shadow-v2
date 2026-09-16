@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-shadow}
+      POSTGRES_USER: ${POSTGRES_USER:-shadow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shadow_password}
+    volumes:
+      - shadow_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-shadow} -d ${POSTGRES_DB:-shadow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-shadow}:${POSTGRES_PASSWORD:-shadow_password}@postgres:5432/${POSTGRES_DB:-shadow}
+      SECRET_KEY: ${SECRET_KEY:-change-this-development-secret}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      ACCESS_TOKEN_MINUTES: ${ACCESS_TOKEN_MINUTES:-15}
+      REFRESH_TOKEN_DAYS: ${REFRESH_TOKEN_DAYS:-30}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8000}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  shadow_postgres:
